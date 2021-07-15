@@ -5,6 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# .zprofile only auto source by login shell is zsh
+if [[ -o interactive ]]; then
+  source "$HOME/.zprofile"
+fi
+
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
@@ -99,6 +104,9 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # Enable GPG popup window
 export GPG_TTY="$( tty )"
+
+# Enforce ssh connect to server use zsh in case that we couldn't execute chsh
+zssh() ssh "$@" -t zsh
 
 # Select syntax theme
 # `bat --list-themes | fzf --preview="bat --theme={} --color=always /path/file"` for preview

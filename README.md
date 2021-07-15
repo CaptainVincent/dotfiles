@@ -10,7 +10,7 @@ Here I pick out a minimum dotfiles set to organize my cross platform machine's e
 
 And below will describe how I make them work together.
 
-**First, I add symbolic link and physical file both into chezmoi**
+**First, add symbolic link and physical file both into chezmoi**
 
 For example:
 ```bash
@@ -20,7 +20,21 @@ chezmoi add ~/.zshrc $(readlink ~/.zshrc)
 **And then I sed all symbolic link paths from absolute path to relative path like this**
 
 ```bash
+chezmoi cd
 find . -name 'symlink*' -print0 | xargs -0 sed -i "" "s|${HOME//\//\\/}|\$HOME|g"
+```
+
+**Finally, use this script relink to the real home path on apply target**
+> Because chezmoi not support `$HOME` env virable as I think so I need relink it.
+
+```bash
+#!/bin/bash
+# Proper header for a Bash script.
+for filename in $(find . -type l ! -exec test -e {} \; -print) ; do
+  path=$(ls -l $filename | sed "s/.*>\ \(.*\)/\1/")
+  new=$(echo $path | sed "s|\$HOME|${HOME}|g")
+  ln -sf $new $filename
+done
 ```
 
 

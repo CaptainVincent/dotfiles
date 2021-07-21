@@ -27,3 +27,5 @@
     ll  = !"git lg1 --all"
 [color]
 	ui = auto
+[pull]
+	ff = only

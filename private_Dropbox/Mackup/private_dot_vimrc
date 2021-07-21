@@ -15,6 +15,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 " File system explorer
 Plug 'preservim/nerdtree'
+" Undo actions in tree view
+Plug 'mbbill/undotree'
 " Gitgutter + - M with line
 Plug 'airblade/vim-gitgutter'
 " Provide vertical lines at each indentation level
@@ -25,10 +27,14 @@ Plug 'tpope/vim-sleuth'
 Plug 'junegunn/vim-easy-align'
 " Automatically highlighting other uses of the current word under the cursor
 Plug 'RRethy/vim-illuminate'
+" Hyperfocus-writing in Vim.
+Plug 'junegunn/limelight.vim'
 " Insert or delete brackets, parens, quotes in pair
 Plug 'jiangmiao/auto-pairs'
 " Color parentheses
 Plug 'luochen1990/rainbow'
+" Handle with parentheses, brackets, quotes, XML tags
+Plug 'tpope/vim-surround'
 " Fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -45,10 +51,14 @@ Plug 'haya14busa/incsearch.vim'
 " Quick jump with search tetms
 " Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
-" AI autocomplete
+" AI autocomplete, only applies to machines with Linux
 if !has("macunix")
   Plug 'kiteco/vim-plugin', { 'as': 'vim-kite' }
 endif
+" Another tab complete tool, for general purpose case
+Plug 'ervandew/supertab'
+" Solidity syntax
+Plug 'tomlion/vim-solidity'
 call plug#end()
 
 
@@ -224,6 +234,11 @@ let g:terminal_ansi_colors = [
   \ '#abbacf', '#f7f7f7',
   \]
 
+
+" auto trailing spaces
+autocmd BufWritePre * :%s/\s\+$//e
+
+
 " Others
 let mapleader = ","
 nmap s <Plug>(easymotion-s2)
@@ -236,6 +251,8 @@ map z? <Plug>(incsearch-easymotion-?)
 map zg/ <Plug>(incsearch-easymotion-stay)
 
 syntax on
+syntax enable
+filetype plugin indent on
 set number
 set relativenumber
 set cursorline
@@ -243,3 +260,7 @@ set backspace=indent,eol,start
 set noshowmode
 set laststatus=2
 set whichwrap+=<,>,h,l,[,]
+" fold
+set foldmethod=syntax
+" no fold when launch vim
+set nofoldenable

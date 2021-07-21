@@ -66,6 +66,7 @@ zinit light-mode for \
 zinit wait lucid light-mode for \
     atinit"zicompinit; zicdreplay" \
     OMZP::git
+
 zinit lucid has'docker' for \
     as'completion' is-snippet \
         OMZP::docker/_docker \
@@ -136,7 +137,6 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # Python
 ## Path for search global python tools
-## pipenv, img2pdf
 export PATH="$HOME/.local/bin:$PATH"
 ## Defines the directory under which Python versions and shims reside.
 export PYENV_ROOT="$HOME/.pyenv"

@@ -1,1 +1,1 @@
-$HOME/Dropbox/Mackup/.p10k.zsh
+$HOME/Dropbox/Env/Mackup/.p10k.zsh

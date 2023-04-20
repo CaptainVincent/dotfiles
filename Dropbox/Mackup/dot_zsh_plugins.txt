@@ -1,0 +1,16 @@
+ael-code/zsh-colored-man-pages
+DarrinTisdale/zsh-aliases-exa
+unixorn/git-extra-commands
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/history/history.plugin.zsh
+ohmyzsh/ohmyzsh path:plugins/command-not-found
+ohmyzsh/ohmyzsh path:lib/history.zsh
+
+# Completions and ...etc not suppoted plugins by Warp, could be used in [[$TERM_PROGRAM != "WarpTerminal"]]
+rupa/z
+changyuheng/fz.sh
+Aloxaf/fzf-tab
+zsh-users/zsh-autosuggestions
+zdharma-continuum/fast-syntax-highlighting
+ohmyzsh/ohmyzsh path:lib/completion.zsh

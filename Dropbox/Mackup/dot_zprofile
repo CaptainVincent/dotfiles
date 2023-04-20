@@ -1,0 +1,6 @@
+if [[ "$OSTYPE" == "darwin"* && -f "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ "$OSTYPE" == "linux-gnu"* && -f "$HOME/.linuxbrew/bin/brew" ]]; then
+  eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+  export PKG_CONFIG_PATH=$HOME/.linuxbrew/lib/pkgconfig
+fi

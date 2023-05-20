@@ -22,11 +22,16 @@ zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # Enable GPG popup window
 export GPG_TTY="$( tty )"
 
-# Make cursor move compatible inside the tmux
-## Alt + ->
+# Tmux
+## make cursor move compatible inside the tmux
+### alt + ->
 bindkey "^[[1;3C" forward-word
-## Alt + <-
+### alt + <-
 bindkey "^[[1;3D" backward-word
+## use a symbolic link to replace the fixed sock path, allowing for dynamic updates.
+if [[ -n "$TMUX" ]]; then
+  export SSH_AUTH_SOCK="$HOME/.ssh/$(basename "$(dirname "$TMUX")")-$(tmux display-message -p "#{session_id}" | tr -d '$').sock"
+fi
 
 # Select syntax theme for bat
 # `bat --list-themes | fzf --preview="bat --theme={} --color=always /path/file"` for preview
@@ -66,7 +71,7 @@ source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 ## initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 antidote load
 
-# Useless features in Warp
+# Useless features hidden in Warp
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     # For zsh-users/zsh-autosuggestions, avoid triggering autosuggestion for strings that are too long.
     ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20

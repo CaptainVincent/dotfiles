@@ -14,7 +14,7 @@ setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
-HISTORY_IGNORE="(ls|rm *|pwd|exit|touch *|unar *)"
+HISTORY_IGNORE="ls|rm *|pwd|exit|touch *|unrar *|zip *|x *"
 
 # Let history ignore wrong commands
 zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
@@ -75,6 +75,24 @@ antidote load
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     # For zsh-users/zsh-autosuggestions, avoid triggering autosuggestion for strings that are too long.
     ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+fi
+
+# Erase commands that may leak sensitive information
+HISTFILE=~/.zsh_history
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    erase_cmd() {
+        # Mac
+        for cmd in "$@"; do
+            LC_ALL=C sed -i '' "/;$cmd /d" "$HISTFILE"
+        done
+    }
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    erase_cmd() {
+        # Linux
+        for cmd in "$@"; do
+            LC_ALL=C sed -i "/;$cmd /d" "$HISTFILE"
+        done
+    }
 fi
 
 # Chezmoi
